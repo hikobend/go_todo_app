@@ -10,14 +10,14 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func TestMainFunc(t *testing.T) {
+func TestRun(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	eg, ctx := errgroup.WithContext(ctx)
 	eg.Go(func() error {
 		return run(ctx)
 	})
 	in := "message"
-	rsp, err := http.Get("localhost:18080/" + in)
+	rsp, err := http.Get("http://localhost:18080/" + in)
 	if err != nil {
 		t.Errorf("failed to get: %+v", err)
 	}
