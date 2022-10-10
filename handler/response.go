@@ -12,7 +12,7 @@ type ErrResponse struct {
 	Details []string `json:"details,omitempty"`
 }
 
-func ResponseJSON(ctx context.Context, w http.ResponseWriter, body any, status int) {
+func RespondJSON(ctx context.Context, w http.ResponseWriter, body any, status int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	bodyBytes, err := json.Marshal(body)
 	if err != nil {
@@ -28,6 +28,6 @@ func ResponseJSON(ctx context.Context, w http.ResponseWriter, body any, status i
 
 	w.WriteHeader(status)
 	if _, err := fmt.Fprintf(w, "%s", bodyBytes); err != nil {
-		fmt.Printf("wirte response error: %v", err)
+		fmt.Printf("write response error: %v", err)
 	}
 }
