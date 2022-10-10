@@ -17,15 +17,14 @@ func AssertJSON(t *testing.T, want, got []byte) {
 	if err := json.Unmarshal(want, &jw); err != nil {
 		t.Fatalf("cannot unmarshal want %q: %v", want, err)
 	}
-	if err := json.Unmarshal(got, &jw); err != nil {
+	if err := json.Unmarshal(got, &jg); err != nil {
 		t.Fatalf("cannot unmarshal got %q: %v", got, err)
 	}
 	if diff := cmp.Diff(jg, jw); diff != "" {
 		t.Errorf("got differs: (-got +want)\n%s", diff)
 	}
 }
-
-func AssertRespose(t *testing.T, got *http.Response, status int, body []byte) {
+func AssertResponse(t *testing.T, got *http.Response, status int, body []byte) {
 	t.Helper()
 	t.Cleanup(func() { _ = got.Body.Close() })
 	gb, err := io.ReadAll(got.Body)
@@ -43,7 +42,6 @@ func AssertRespose(t *testing.T, got *http.Response, status int, body []byte) {
 }
 
 func LoadFile(t *testing.T, path string) []byte {
-
 	t.Helper()
 
 	bt, err := os.ReadFile(path)

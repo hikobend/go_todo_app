@@ -26,7 +26,7 @@ func TestAddTask(t *testing.T) {
 		"ok": {
 			reqFile: "testdata/add_task/ok_req.json.golden",
 			want: want{
-				status:  http.StatusBadRequest,
+				status:  http.StatusOK,
 				rspFile: "testdata/add_task/ok_rsp.json.golden",
 			},
 		},
@@ -58,7 +58,7 @@ func TestAddTask(t *testing.T) {
 			sut.ServeHTTP(w, r)
 
 			resp := w.Result()
-			testutil.AssertRespose(t,
+			testutil.AssertResponse(t,
 				resp, tt.want.status, testutil.LoadFile(t, tt.want.rspFile),
 			)
 		})
